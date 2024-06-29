@@ -36,7 +36,6 @@ const Home = () => {
 
 	return (
 		<div className={styles.home}>
-			<Navigation />
 			<main>
 				<MoviesCardList movies={movies} />
 			</main>

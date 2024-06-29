@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import HeartIconActive from '../../images/heart-active.svg'
 import HeartIcon from '../../images/heart.svg'
 import { ICard } from '../../interfaces/data'
@@ -20,11 +21,11 @@ const MoviesCard: React.FC<MoviesCardProps> = ({ mov }) => {
 	return (
 		<li className={styles.card}>
 			<article>
-				<div className={styles.card__poster}>
+				<Link to={`/movie/${mov.id}`} className={styles.card__poster}>
 					{mov.poster !== undefined && (
 						<img className={styles.card__image} src={mov.poster.url} />
 					)}
-				</div>
+				</Link>
 				<div className={styles.card__box}>
 					<h2 className={styles.card__title}>
 						{mov.name || mov.alternativeName}

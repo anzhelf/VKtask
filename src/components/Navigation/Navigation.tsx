@@ -5,15 +5,14 @@ const Navigation = () => {
 	return (
 		<nav className={styles.menu}>
 			<NavLink
-				exact
-				activeClassName={styles.menu__link_active}
+				style={({ isActive }) => ({ color: isActive && '#646cff' })}
 				className={styles.menu__link}
 				to='/'
 			>
 				Movies
 			</NavLink>
 			<NavLink
-				activeClassName={styles.menu__link_active}
+				style={({ isActive }) => ({ color: isActive && '#646cff' })}
 				className={styles.menu__link}
 				to='/like'
 			>
