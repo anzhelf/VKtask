@@ -1,10 +1,12 @@
-import MoviesCardList from '../MoviesCardList/MoviesCardList'
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import MoviesCardList from '../../components/MoviesCardList/MoviesCardList'
 import { IResponse } from '../../interfaces/data'
 import styles from './Home.module.scss'
+// import Filter from './components/Filter'
+import Navigation from '../../components/Navigation/Navigation'
 
-const URL: string = 'https://api.kinopoisk.dev/v1.4/movie?page=1&limit=50'
-const AUCH: string = `4WEFRQ2-1N34QH1-QKVCJ37-5C0RQ1B`
+const BASE_URL = import.meta.env.VITE_BASE_URL
+const API_KEY = import.meta.env.VITE_API_KEY
 
 const Home = () => {
 	const [movies, setMovies] = useState<IResponse | null>(null)
@@ -17,10 +19,10 @@ const Home = () => {
 			setMovies(parseMovies)
 		} else {
 			console.log('tyt')
-			fetch(URL, {
+			fetch(`${BASE_URL}`, {
 				method: 'GET',
 				headers: {
-					'X-API-KEY': AUCH,
+					'X-API-KEY': `${API_KEY}`,
 				},
 			})
 				.then(res => res.json())
@@ -32,29 +34,11 @@ const Home = () => {
 		}
 	}, [])
 
-	console.log(movies !== null && movies.docs[0])
-
 	return (
 		<div className={styles.home}>
-			{/* <header className={styles.header}>logo</header> */}
+			<Navigation />
 			<main>
-				<h1>Movies</h1>
-				<nav>
-					<a>по жанру(можно несколько)</a>
-					<a>по рейтингу(диапазон рейтинга)</a>
-					<a>по году выпуска(с 1990)</a>
-				</nav>
-				<h1>hghghgh</h1>
-				<ul>
-					{movies !== null &&
-						movies.docs.map((mov, i) => (
-							<li key={mov.id}>
-								{i}
-								{mov.name}
-							</li>
-						))}
-				</ul>
-				{/* <MoviesCardList /> */}
+				<MoviesCardList movies={movies} />
 			</main>
 		</div>
 	)

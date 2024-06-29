@@ -1,12 +1,12 @@
 export interface IResponse {
-	docs: ICards[]
+	docs: ICard[]
 	total: number
 	limit: number
 	page: number
 	pages: number
 }
 
-interface ICards {
+export interface ICard {
 	id: number | null
 	externalId: IExternalId
 	name: string | null
