@@ -19,10 +19,11 @@ const MoviesCard: React.FC<IProps> = ({ mov }) => {
 	const [likes, setLikes] = useState<arrData[]>([])
 	const [isLikeActive, setLikeActive] = useState<boolean>(false)
 
-	const handleClick = (): void => {
-		setLikeActive(!isLikeActive)
-		setLikes(prev => [...prev, mov])
-	}
+	// const handleClick = (): void => {
+	// 	setLikeActive(!isLikeActive)
+	// 	setLikes([...likes, mov])
+	// }
+	console.log(mov)
 	return (
 		<li className={styles.card}>
 			<article>
