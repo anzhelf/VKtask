@@ -1,0 +1,26 @@
+.filter {
+	margin: 0;
+	padding: 30px;
+
+	&__container {
+		display: flex;
+		justify-content: center;
+		align-items: flex-start;
+		gap: 50px;
+	}
+
+	&__title {
+		font-size: 16px;
+		margin: 0;
+	}
+
+	&__block {
+		display: flex;
+		flex-direction: column;
+	}
+
+	&__button {
+		color: white;
+		margin: 20px 0;
+	}
+}

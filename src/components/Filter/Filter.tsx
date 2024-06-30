@@ -1,54 +1,84 @@
-import React from 'react'
+import { useState } from 'react'
+import styles from './Filter.module.scss'
+import TextField from '@mui/material/TextField'
+// import { TextMaskCustom } from './TextMaskCustom'
 
-interface FilterProps {
-	genres: string[]
-	ratings: number[]
-	years: number[]
-	selectedFilters: []
-	handleChange: []
-}
+const Filter = () => {
+	const genres = ['Action', 'Comedy', 'Drama', 'Horror', 'Sci-Fi']
+	const [selectedGenres, setSelectedGenres] = useState([])
 
-const Filter: React.FC<FilterProps> = ({
-	genres,
-	ratings,
-	years,
-	selectedFilters,
-	handleChange,
-}) => {
+	const handleCheckboxChange = genre => {
+		if (selectedGenres.includes(genre)) {
+			setSelectedGenres(
+				selectedGenres.filter(selectedGenre => selectedGenre !== genre),
+			)
+		} else {
+			setSelectedGenres([...selectedGenres, genre])
+		}
+	}
+
+	const handleSearch = () => {
+		console.log('Выбранные жанры для поиска:', selectedGenres)
+	}
 	return (
-		<div>
-			<h3>Фильтр</h3>
-			<label>Жанр:</label>
-			<select name='genre' multiple onChange={handleChange}>
-				{genres.map(genre => (
-					<option key={genre} value={genre}>
-						{genre}
-					</option>
-				))}
-			</select>
+		<div className={styles.filter}>
+			<ul className={styles.filter__container}>
+				<li>
+					<h2 className={styles.filter__title}>По жанру</h2>
+					<ul className={styles.filter__block}>
+						{genres.map(genre => (
+							<label key={genre}>
+								<input
+									type='checkbox'
+									value={genre}
+									checked={selectedGenres.includes(genre)}
+									onChange={() => handleCheckboxChange(genre)}
+								/>
+								{genre}
+							</label>
+						))}
+					</ul>
+				</li>
+				<li>
+					{' '}
+					<h2 className={styles.filter__title}>По рейтингу</h2>
+					<ul className={styles.filter__block}>
+						{genres.map(genre => (
+							<label key={genre}>
+								<input
+									type='checkbox'
+									value={genre}
+									checked={selectedGenres.includes(genre)}
+									onChange={() => handleCheckboxChange(genre)}
+								/>
+								{genre}
+							</label>
+						))}
+					</ul>
+				</li>
+				<li>
+					<h2 className={styles.filter__title}>По дате</h2>
+					<ul className={styles.filter__block}>
+						<li>
+							<input maxLength={4} minLength={4} />
+						</li>
+						<li>
+							<input />
+						</li>
+					</ul>
+				</li>
+			</ul>
 
-			<label>Рейтинг:</label>
-			<input
-				type='number'
-				name='minRating'
-				placeholder='Минимальный рейтинг'
-				onChange={handleChange}
-			/>
-			<input
-				type='number'
-				name='maxRating'
-				placeholder='Максимальный рейтинг'
-				onChange={handleChange}
+			<TextField
+				label='Введите год'
+				InputProps={{
+					inputComponent: TextMaskCustom,
+				}}
 			/>
 
-			<label>Год выпуска с 1990:</label>
-			<select name='year' onChange={handleChange}>
-				{years.map(year => (
-					<option key={year} value={year}>
-						{year}
-					</option>
-				))}
-			</select>
+			<button className={styles.filter__button} onClick={handleSearch}>
+				Поиск
+			</button>
 		</div>
 	)
 }

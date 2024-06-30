@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react'
 import MoviesCardList from '../../components/MoviesCardList/MoviesCardList'
 import { IResponse } from '../../interfaces/data'
 import styles from './Home.module.scss'
-// import Filter from './components/Filter'
-import Navigation from '../../components/Navigation/Navigation'
+import Filter from '../../components/Filter/Filter'
+import PaginationOutlined from '../../components/PaginationOutlined/PaginationOutlined'
 
 const BASE_URL = import.meta.env.VITE_BASE_URL
 const API_KEY = import.meta.env.VITE_API_KEY
@@ -36,9 +36,11 @@ const Home = () => {
 
 	return (
 		<div className={styles.home}>
+			<Filter />
 			<main>
 				<MoviesCardList movies={movies} />
 			</main>
+			<PaginationOutlined />
 		</div>
 	)
 }
