@@ -44,7 +44,10 @@ const SelectRating = () => {
 
 	return (
 		<div>
-			<FormControl size='small' sx={{ m: 1, minWidth: 120 }}>
+			<FormControl
+				size='small'
+				sx={{ m: 1, minWidth: 120, margin: 0, marginRight: 1 }}
+			>
 				<InputLabel htmlFor='grouped-select'>с ... рейтинга:</InputLabel>
 				<Select
 					name='from'
@@ -64,7 +67,7 @@ const SelectRating = () => {
 					))}
 				</Select>
 			</FormControl>
-			<FormControl size='small' sx={{ m: 1, minWidth: 120 }}>
+			<FormControl size='small' sx={{ m: 1, minWidth: 120, margin: 0 }}>
 				<InputLabel htmlFor='grouped-select'>по ... рейтинг:</InputLabel>
 				<Select
 					name='to'

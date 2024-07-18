@@ -9,10 +9,12 @@ interface MoviesCardListProps {
 
 const MoviesCardList: FC<MoviesCardListProps> = ({ movies }) => {
 	return (
-		<ul className={styles.list}>
-			{movies !== null &&
-				movies.docs.map(mov => <MoviesCard key={mov.id} mov={mov} />)}
-		</ul>
+		<main className={styles.main}>
+			<ul className={styles.main__list}>
+				{movies !== null &&
+					movies.docs.map(mov => <MoviesCard key={mov.id} mov={mov} />)}
+			</ul>
+		</main>
 	)
 }
 export default MoviesCardList

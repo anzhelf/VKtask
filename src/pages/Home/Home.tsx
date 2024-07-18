@@ -44,8 +44,6 @@ const Home = () => {
 		// }
 	}, [query, page])
 
-	console.log(page, pageQty)
-
 	const handleChange = (event: React.ChangeEvent<unknown>, num: number) => {
 		setPage(num)
 	}
@@ -53,7 +51,7 @@ const Home = () => {
 	return (
 		<div className={styles.home}>
 			<Filter />
-			<main>{movies !== null && <MoviesCardList movies={movies} />}</main>
+			{!!movies && <MoviesCardList movies={movies} />}
 			<PaginationOutlined
 				pageQty={pageQty}
 				page={page}

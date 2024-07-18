@@ -9,14 +9,14 @@ const Navigation = () => {
 				className={styles.menu__link}
 				to='/'
 			>
-				Movies
+				Фильмы
 			</NavLink>
 			<NavLink
 				style={({ isActive }) => ({ color: isActive && '#646cff' })}
 				className={styles.menu__link}
 				to='/like'
 			>
-				LikeMovies
+				Избранное
 			</NavLink>
 		</nav>
 	)

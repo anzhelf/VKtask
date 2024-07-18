@@ -47,7 +47,6 @@ const SelectChip = () => {
 						},
 					},
 				)
-				console.log(data)
 				// localStorage.setItem('moviesList', JSON.stringify(data))
 				setGenresName(data)
 			} catch (e) {
@@ -72,7 +71,7 @@ const SelectChip = () => {
 
 	return (
 		<div>
-			<FormControl size='small' sx={{ m: 1, width: 250 }}>
+			<FormControl size='small' sx={{ m: 1, width: 250, margin: 0 }}>
 				<InputLabel id='demo-multiple-checkbox-label'>По жанру:</InputLabel>
 				<Select
 					labelId='demo-multiple-checkbox-label'

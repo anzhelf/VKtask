@@ -1,11 +1,10 @@
 .filter {
 	margin: 0;
 	display: flex;
-	justify-content: space-between;
+	justify-content: center;
 	align-items: center;
-	gap: 10px;
+	gap: 12px;
 	width: 100%;
-	border: 1px solid red;
 
 	&__container {
 		display: flex;
@@ -27,5 +26,11 @@
 	&__button {
 		color: white;
 		margin: 20px 0;
+	}
+}
+
+@media screen and (max-width: 920px) {
+	.filter {
+		flex-direction: column;
 	}
 }

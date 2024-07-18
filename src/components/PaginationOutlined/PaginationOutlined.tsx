@@ -1,5 +1,5 @@
-import { FC } from 'react'
 import { Pagination, Stack } from '@mui/material'
+import { FC } from 'react'
 import styles from './PaginationOutlined.module.scss'
 
 interface PaginationOutlinedProps {
@@ -17,6 +17,7 @@ const PaginationOutlined: FC<PaginationOutlinedProps> = ({
 		<Stack className={styles.pagination} spacing={2}>
 			{!!pageQty && (
 				<Pagination
+					size='small'
 					count={pageQty}
 					page={page}
 					onChange={handleChange}

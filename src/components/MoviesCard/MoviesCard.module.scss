@@ -1,19 +1,20 @@
 .card {
 	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
 		0 0 6px -2px rgba(205, 176, 176, 0.05);
-
 	background-color: #fff;
 	border-radius: 10px;
-	// overflow: hidden;
-	// position: relative;
+	overflow: hidden;
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
+	min-height: 400px;
+	height: 100%;
 
 	&__poster {
+		border-radius: 10px 10px 0 0;
 		width: 100%;
 		height: 360px;
-		// height: auto;
 		overflow: hidden;
 		display: flex;
 		justify-content: center;
@@ -22,8 +23,8 @@
 	}
 
 	&__image {
-		// overflow: hidden;
-		// object-fit: cover;
+		overflow: hidden;
+		object-fit: cover;
 		height: auto;
 		width: 100%;
 	}

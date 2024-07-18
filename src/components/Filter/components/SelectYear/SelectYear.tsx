@@ -43,11 +43,12 @@ const SelectYear = () => {
 		// setCurrentRating(typeof value === 'string' ? value.split(',') : value)
 	}
 
-	console.log(currentYear)
-
 	return (
 		<div>
-			<FormControl size='small' sx={{ m: 1, minWidth: 120 }}>
+			<FormControl
+				size='small'
+				sx={{ m: 1, minWidth: 120, margin: 0, marginRight: 1 }}
+			>
 				<InputLabel htmlFor='grouped-select'>с ... года:</InputLabel>
 				<Select
 					name='from'
@@ -67,7 +68,7 @@ const SelectYear = () => {
 					))}
 				</Select>
 			</FormControl>
-			<FormControl size='small' sx={{ m: 1, minWidth: 120 }}>
+			<FormControl size='small' sx={{ m: 1, minWidth: 120, margin: 0 }}>
 				<InputLabel htmlFor='grouped-select'>по ... год:</InputLabel>
 				<Select
 					name='to'

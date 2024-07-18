@@ -10,7 +10,7 @@ interface MoviesCardProps {
 }
 
 const MoviesCard: React.FC<MoviesCardProps> = ({ mov }) => {
-	const [likes, setLikes] = useState<string[]>([])
+	const [likes, setLikes] = useState<ICard[]>([])
 	const [isLikeActive, setLikeActive] = useState<boolean>(false)
 
 	const handleClick = (): void => {
@@ -22,10 +22,11 @@ const MoviesCard: React.FC<MoviesCardProps> = ({ mov }) => {
 		<li className={styles.card}>
 			<article>
 				<Link to={`/movie/${mov.id}`} className={styles.card__poster}>
-					{mov.poster !== undefined && (
+					{!!mov.poster && typeof mov.poster.url === 'string' && (
 						<img className={styles.card__image} src={mov.poster.url} />
 					)}
 				</Link>
+
 				<div className={styles.card__box}>
 					<h2 className={styles.card__title}>
 						{mov.name || mov.alternativeName}
