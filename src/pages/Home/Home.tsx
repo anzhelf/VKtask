@@ -9,6 +9,13 @@ import styles from './Home.module.scss'
 const BASE_URL = import.meta.env.VITE_BASE_URL
 const API_KEY = import.meta.env.VITE_API_KEY
 
+// const q = {
+// 	year: 0,
+// 	rating: 0,
+// 	genre: 0,
+// 	page: 0
+// }
+
 const Home = () => {
 	const [movies, setMovies] = useState<IResponse | null>(null)
 
@@ -34,17 +41,12 @@ const Home = () => {
 			}
 		}
 		fetchMovies()
-		// const storageMovies = localStorage.getItem('moviesList')
-
-		// if (storageMovies !== null) {
-		// 	const parseMovies: IResponse = JSON.parse(storageMovies)
-		// 	setMovies(parseMovies)
-		// } else {
-		// 	fetchMovies()
-		// }
 	}, [query, page])
 
-	const handleChange = (event: React.ChangeEvent<unknown>, num: number) => {
+	const handleChangePagination = (
+		_: React.ChangeEvent<unknown>,
+		num: number,
+	) => {
 		setPage(num)
 	}
 
@@ -55,7 +57,7 @@ const Home = () => {
 			<PaginationOutlined
 				pageQty={pageQty}
 				page={page}
-				handleChange={handleChange}
+				handleChangePagination={handleChangePagination}
 			/>
 		</div>
 	)

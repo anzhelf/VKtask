@@ -5,13 +5,16 @@ import styles from './PaginationOutlined.module.scss'
 interface PaginationOutlinedProps {
 	pageQty: number
 	page: number
-	handleChange: (event: React.ChangeEvent<unknown>, num: number) => void
+	handleChangePagination: (
+		event: React.ChangeEvent<unknown>,
+		num: number,
+	) => void
 }
 
 const PaginationOutlined: FC<PaginationOutlinedProps> = ({
 	pageQty,
 	page,
-	handleChange,
+	handleChangePagination,
 }) => {
 	return (
 		<Stack className={styles.pagination} spacing={2}>
@@ -20,7 +23,7 @@ const PaginationOutlined: FC<PaginationOutlinedProps> = ({
 					size='small'
 					count={pageQty}
 					page={page}
-					onChange={handleChange}
+					onChange={handleChangePagination}
 					variant='outlined'
 				/>
 			)}
