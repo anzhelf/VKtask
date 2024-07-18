@@ -10,7 +10,6 @@ const CardPage = () => {
 	const [movie, setMovie] = useState<ICard | null>(null)
 	const { id } = useParams<{ id: string }>()
 
-	console.log(id)
 	useEffect(() => {
 		fetch(`https://api.kinopoisk.dev/v1.4/movie/${id}`, {
 			method: 'GET',
@@ -47,7 +46,9 @@ const CardPage = () => {
 
 					<ul>
 						{movie.genres.map(el => (
-							<li className={styles.card__genre}>{el.name}</li>
+							<li key={el.name} className={styles.card__genre}>
+								{el.name}
+							</li>
 						))}
 					</ul>
 				</div>
