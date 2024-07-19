@@ -59,7 +59,6 @@ export interface ICard {
 
 interface IExternalId {}
 
-// interface IFacts {}
 interface IRating {
 	kp: number | null
 	imdb: number | null
@@ -71,4 +70,29 @@ interface IRating {
 interface IPoster {
 	url: string | null
 	previewUrl: string | null
+}
+
+export interface IResponseGenre {
+	name: string
+	slug: string
+}
+
+export interface IFilterSlice {
+	year: {
+		from: number
+		to: number
+	}
+	rating: {
+		from: number
+		to: number
+	}
+	genres: {
+		stackGenres: IResponseGenre[] | null
+		selectedGenres: string[] | string
+	}
+
+	pages: {
+		pagesQty: number
+		page: number
+	}
 }

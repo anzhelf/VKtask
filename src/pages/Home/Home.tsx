@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import Filter from '../../components/Filter/Filter'
 import MoviesCardList from '../../components/MoviesCardList/MoviesCardList'
 import PaginationOutlined from '../../components/PaginationOutlined/PaginationOutlined'
-import { IResponse } from '../../interfaces/data'
+import { IResponse, IFilterSlice } from '../../interfaces/data'
 import styles from './Home.module.scss'
 
 import { useDispatch, useSelector } from 'react-redux'
@@ -13,7 +13,7 @@ import type { RootState } from '../../redux/store'
 const BASE_URL = import.meta.env.VITE_BASE_URL
 const API_KEY = import.meta.env.VITE_API_KEY
 
-function queryParams({ year, rating, genres }) {
+const queryParams = ({ year, rating, genres }: IFilterSlice): string => {
 	let y = ''
 	let r = ''
 	let g = ''

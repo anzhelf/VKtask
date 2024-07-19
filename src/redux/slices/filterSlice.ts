@@ -1,30 +1,6 @@
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
-
-interface IResponseGenre {
-	name: string
-	slug: string
-}
-
-export interface IFilterSlice {
-	year: {
-		from: number
-		to: number
-	}
-	rating: {
-		from: number
-		to: number
-	}
-	genres: {
-		stackGenres: IResponseGenre[] | null
-		selectedGenres: string[] | string
-	}
-
-	pages: {
-		pagesQty: number
-		page: number
-	}
-}
+import { IFilterSlice, IResponseGenre } from '../../interfaces/data'
 
 const initialState: IFilterSlice = {
 	year: {
@@ -71,11 +47,6 @@ export const filterSlice = createSlice({
 		setSelectedGenres(state, action: PayloadAction<string[] | []>) {
 			state.genres.selectedGenres = action.payload
 		},
-		// decSelectGenre(state, action: PayloadAction<string>) {
-		// 	state.genres.selectGenres = state.genres.selectGenres.filter(
-		// 		i => i !== action.payload,
-		// 	)
-		// },
 		setStackGenre(state, action: PayloadAction<IResponseGenre[]>) {
 			state.genres.stackGenres = action.payload
 		},
