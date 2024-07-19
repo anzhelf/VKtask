@@ -33,7 +33,9 @@ const MoviesCard: React.FC<IMoviesCardProps> = ({ mov }) => {
 					</h2>
 					<div className={styles.card__info}>
 						<div className={styles.card__rating}>
-							<p className={styles.card__subtitle}>{mov.rating.kp}</p>
+							<p className={styles.card__subtitle}>
+								{mov.rating.kp?.toFixed(1)}
+							</p>
 						</div>
 						<p className={styles.card__subtitle}>{mov.year}</p>
 						<img

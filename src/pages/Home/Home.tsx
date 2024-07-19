@@ -49,8 +49,6 @@ const Home = () => {
 	const filter = useSelector((state: RootState) => state.filter)
 	const dispatch = useDispatch()
 
-	console.log(movies)
-
 	useEffect(() => {
 		async function fetchMovies() {
 			try {

@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { ICard } from '../../interfaces/data'
 import styles from './CardPage.module.scss'
+import axios from 'axios'
 
-// const BASE_URL = import.meta.env.VITE_BASE_URL
+const BASE_URL = import.meta.env.VITE_BASE_URL
 const API_KEY = import.meta.env.VITE_API_KEY
 
 const CardPage = () => {
@@ -11,15 +12,20 @@ const CardPage = () => {
 	const { id } = useParams<{ id: string }>()
 
 	useEffect(() => {
-		fetch(`https://api.kinopoisk.dev/v1.4/movie/${id}`, {
-			method: 'GET',
-			headers: {
-				'X-API-KEY': `${API_KEY}`,
-			},
-		})
-			.then(res => res.json())
-			.then(data => setMovie(data))
-			.catch(err => console.log('Ошибка:(', err.message))
+		async function fetchCard() {
+			try {
+				const { data } = await axios.get(`${BASE_URL}/${id}`, {
+					method: 'GET',
+					headers: {
+						'X-API-KEY': `${API_KEY}`,
+					},
+				})
+				setMovie(data)
+			} catch (e) {
+				console.log('Произошла ошибка, при получении фильма:', e)
+			}
+		}
+		fetchCard()
 	}, [])
 
 	if (!movie) return <div>Loading...</div>
@@ -38,7 +44,9 @@ const CardPage = () => {
 					</h2>
 					<div className={styles.card__info}>
 						<div className={styles.card__rating}>
-							<p className={styles.card__subtitle}>{movie.rating.imdb}</p>
+							<p className={styles.card__subtitle}>
+								{movie.rating.kp?.toFixed(1)}
+							</p>
 						</div>
 						<p className={styles.card__subtitle}>{movie.year}</p>
 					</div>

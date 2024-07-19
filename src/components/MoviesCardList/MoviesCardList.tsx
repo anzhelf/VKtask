@@ -5,6 +5,8 @@ import styles from './MoviesCardList.module.scss'
 
 const MoviesCardList = () => {
 	const movies = useSelector((state: RootState) => state.movies.value)
+
+	if (!movies) return <div>Loading...</div>
 	return (
 		<main className={styles.main}>
 			<ul className={styles.main__list}>

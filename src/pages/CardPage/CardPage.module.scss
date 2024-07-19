@@ -32,8 +32,9 @@
 		width: 400px;
 		ul {
 			display: flex;
-			gap: 20px;
-			justify-content: center;
+			flex-wrap: wrap;
+			gap: 10px;
+			justify-content: flex-start;
 			align-items: center;
 		}
 		li {

@@ -9,7 +9,6 @@ const Filter = () => {
 			<SelectYear />
 			<SelectRating />
 			<SelectGenres />
-			<button>Поиск</button>
 		</div>
 	)
 }
