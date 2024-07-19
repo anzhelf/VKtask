@@ -1,7 +1,12 @@
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
 
-export interface filterSlice {
+interface IResponseGenre {
+	name: string
+	slug: string
+}
+
+export interface IFilterSlice {
 	year: {
 		from: number
 		to: number
@@ -10,14 +15,18 @@ export interface filterSlice {
 		from: number
 		to: number
 	}
-	genre: string[]
+	genres: {
+		stackGenres: IResponseGenre[] | null
+		selectedGenres: string[] | string
+	}
+
 	pages: {
 		pagesQty: number
 		page: number
 	}
 }
 
-const initialState: filterSlice = {
+const initialState: IFilterSlice = {
 	year: {
 		from: 0,
 		to: 0,
@@ -26,7 +35,10 @@ const initialState: filterSlice = {
 		from: 0,
 		to: 0,
 	},
-	genre: [],
+	genres: {
+		stackGenres: null,
+		selectedGenres: [],
+	},
 	pages: {
 		pagesQty: 0,
 		page: 0,
@@ -56,11 +68,16 @@ export const filterSlice = createSlice({
 			state.rating.to = action.payload
 		},
 
-		increment: state => {
-			state.pages.page += 1
+		setSelectedGenres(state, action: PayloadAction<string[] | []>) {
+			state.genres.selectedGenres = action.payload
 		},
-		decrement: state => {
-			state.pages.page -= 1
+		// decSelectGenre(state, action: PayloadAction<string>) {
+		// 	state.genres.selectGenres = state.genres.selectGenres.filter(
+		// 		i => i !== action.payload,
+		// 	)
+		// },
+		setStackGenre(state, action: PayloadAction<IResponseGenre[]>) {
+			state.genres.stackGenres = action.payload
 		},
 	},
 })
@@ -72,6 +89,8 @@ export const {
 	setYearTo,
 	setRatingFrom,
 	setRatingTo,
+	setSelectedGenres,
+	setStackGenre,
 } = filterSlice.actions
 
 export default filterSlice.reducer

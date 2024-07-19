@@ -8,6 +8,13 @@ import Select, { SelectChangeEvent } from '@mui/material/Select'
 import axios from 'axios'
 import * as React from 'react'
 
+import { useDispatch, useSelector } from 'react-redux'
+import {
+	setSelectedGenres,
+	setStackGenre,
+} from '../../../../redux/slices/filterSlice'
+import type { RootState } from '../../../../redux/store'
+
 const BASE_URL = import.meta.env.VITE_BASE_URL
 const API_KEY = import.meta.env.VITE_API_KEY
 
@@ -29,17 +36,20 @@ const MenuProps = {
 	},
 }
 
-const SelectChip = () => {
-	const [personName, setPersonName] = React.useState<string[]>([])
-	const [genresName, setGenresName] = React.useState<IResponseGenre[] | null>(
-		null,
+const SelectGenres = () => {
+	const stackGenres = useSelector(
+		(state: RootState) => state.filter.genres.stackGenres,
 	)
+	const selectedGenres = useSelector(
+		(state: RootState) => state.filter.genres.selectedGenres,
+	)
+	const dispatch = useDispatch()
 
 	React.useEffect(() => {
 		async function fetchGenres() {
 			try {
 				const { data } = await axios.get(
-					`https://api.kinopoisk.dev/v1/movie/possible-values-by-field?field=genres.name`,
+					`${BASE_URL}/possible-values-by-field?field=genres.name`,
 					{
 						method: 'GET',
 						headers: {
@@ -48,25 +58,27 @@ const SelectChip = () => {
 					},
 				)
 				// localStorage.setItem('moviesList', JSON.stringify(data))
-				setGenresName(data)
+				dispatch(setStackGenre(data))
 			} catch (e) {
 				console.log('Произошла ошибка, при получении списка жанров:', e)
 			}
 		}
 
-		const storageGenres = localStorage.getItem('genresList')
+		const storageStackGenres = localStorage.getItem('genresStack')
 
-		if (storageGenres !== null) {
-			const parseGenres: IResponseGenre[] = JSON.parse(storageGenres)
-			setGenresName(parseGenres)
+		if (storageStackGenres !== null) {
+			const parseGenres: IResponseGenre[] = JSON.parse(storageStackGenres)
+			dispatch(setStackGenre(parseGenres))
 		} else {
 			fetchGenres()
 		}
 	}, [])
 
-	const handleChange = (event: SelectChangeEvent<typeof personName>) => {
+	const handleChange = (event: SelectChangeEvent<typeof selectedGenres>) => {
 		const { value } = event.target
-		setPersonName(typeof value === 'string' ? value.split(',') : value)
+		dispatch(
+			setSelectedGenres(typeof value === 'string' ? value.split(',') : value),
+		)
 	}
 
 	return (
@@ -77,16 +89,18 @@ const SelectChip = () => {
 					labelId='demo-multiple-checkbox-label'
 					id='demo-multiple-checkbox'
 					multiple
-					value={personName}
+					value={selectedGenres}
 					onChange={handleChange}
 					input={<OutlinedInput label='Tag' />}
-					renderValue={selected => selected.join(', ')}
+					renderValue={selected =>
+						Array.isArray(selected) && selected.join(', ')
+					}
 					MenuProps={MenuProps}
 				>
-					{!!genresName &&
-						genresName.map(el => (
+					{!!stackGenres &&
+						stackGenres.map(el => (
 							<MenuItem key={el.name} value={el.name}>
-								<Checkbox checked={personName.indexOf(el.name) > -1} />
+								<Checkbox checked={selectedGenres.indexOf(el.name) > -1} />
 								<ListItemText primary={el.name} />
 							</MenuItem>
 						))}
@@ -96,4 +110,4 @@ const SelectChip = () => {
 	)
 }
 
-export default SelectChip
+export default SelectGenres
