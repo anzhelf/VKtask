@@ -6,22 +6,22 @@ import PaginationOutlined from '../../components/PaginationOutlined/PaginationOu
 import { IResponse } from '../../interfaces/data'
 import styles from './Home.module.scss'
 
+import { useDispatch, useSelector } from 'react-redux'
+import { setPage, setPagesQty } from '../../redux/slices/filterSlice'
+import type { RootState } from '../../redux/store'
+
 const BASE_URL = import.meta.env.VITE_BASE_URL
 const API_KEY = import.meta.env.VITE_API_KEY
 
-// const q = {
-// 	year: 0,
-// 	rating: 0,
-// 	genre: 0,
-// 	page: 0
-// }
-
 const Home = () => {
+	const page = useSelector((state: RootState) => state.filter.pages.page)
+	const dispatch = useDispatch()
+
+	console.log('filter:', page)
+
 	const [movies, setMovies] = useState<IResponse | null>(null)
 
 	const [query, setQuery] = useState<number>(1)
-	const [page, setPage] = useState<number>(1)
-	const [pageQty, setPagesQty] = useState<number>(0)
 
 	useEffect(() => {
 		async function fetchMovies() {
@@ -34,8 +34,8 @@ const Home = () => {
 				})
 				localStorage.setItem('moviesList', JSON.stringify(data))
 				setMovies(data)
-				setPage(data.page)
-				setPagesQty(data.pages)
+				dispatch(setPage(data.page))
+				dispatch(setPagesQty(data.pages))
 			} catch (e) {
 				console.log('Произошла ошибка, при получении фильмов:', e)
 			}
@@ -43,22 +43,11 @@ const Home = () => {
 		fetchMovies()
 	}, [query, page])
 
-	const handleChangePagination = (
-		_: React.ChangeEvent<unknown>,
-		num: number,
-	) => {
-		setPage(num)
-	}
-
 	return (
 		<div className={styles.home}>
 			<Filter />
 			{!!movies && <MoviesCardList movies={movies} />}
-			<PaginationOutlined
-				pageQty={pageQty}
-				page={page}
-				handleChangePagination={handleChangePagination}
-			/>
+			<PaginationOutlined />
 		</div>
 	)
 }

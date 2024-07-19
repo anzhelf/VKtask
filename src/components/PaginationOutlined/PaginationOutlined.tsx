@@ -1,21 +1,21 @@
 import { Pagination, Stack } from '@mui/material'
-import { FC } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { setPage } from '../../redux/slices/filterSlice'
+import type { RootState } from '../../redux/store'
 import styles from './PaginationOutlined.module.scss'
 
-interface PaginationOutlinedProps {
-	pageQty: number
-	page: number
-	handleChangePagination: (
-		event: React.ChangeEvent<unknown>,
-		num: number,
-	) => void
-}
+const PaginationOutlined = () => {
+	const page = useSelector((state: RootState) => state.filter.pages.page)
+	const pageQty = useSelector((state: RootState) => state.filter.pages.pagesQty)
+	const dispatch = useDispatch()
 
-const PaginationOutlined: FC<PaginationOutlinedProps> = ({
-	pageQty,
-	page,
-	handleChangePagination,
-}) => {
+	const handleChangePagination = (
+		_: React.ChangeEvent<unknown>,
+		num: number,
+	): void => {
+		dispatch(setPage(num))
+	}
+
 	return (
 		<Stack className={styles.pagination} spacing={2}>
 			{!!pageQty && (
