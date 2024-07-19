@@ -14,7 +14,7 @@ const Navigation = () => {
 			<NavLink
 				style={({ isActive }) => ({ color: isActive && '#646cff' })}
 				className={styles.menu__link}
-				to='/like'
+				to='/likes'
 			>
 				Избранное
 			</NavLink>

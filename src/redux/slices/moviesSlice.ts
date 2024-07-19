@@ -1,13 +1,15 @@
-import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 import { ICard } from '../../interfaces/data'
 
 interface MoviesState {
-	value: ICard[] | null
+	movies: ICard[] | null
+	saveMovies: number[]
 }
 
 const initialState: MoviesState = {
-	value: null,
+	movies: null,
+	saveMovies: [],
 }
 
 export const moviesSlice = createSlice({
@@ -15,11 +17,21 @@ export const moviesSlice = createSlice({
 	initialState,
 	reducers: {
 		setMovies: (state, action: PayloadAction<ICard[] | null>) => {
-			state.value = action.payload
+			state.movies = action.payload
+		},
+		setSaveMovies: (state, action: PayloadAction<number[]>) => {
+			state.saveMovies = action.payload
+		},
+		incSaveMovies: (state, action: PayloadAction<number>) => {
+			state.saveMovies = [...state.saveMovies, action.payload]
+		},
+		decSaveMovies: (state, action: PayloadAction<number>) => {
+			state.saveMovies = state.saveMovies.filter(el => el !== action.payload)
 		},
 	},
 })
 
-export const { setMovies } = moviesSlice.actions
+export const { setMovies, setSaveMovies, incSaveMovies, decSaveMovies } =
+	moviesSlice.actions
 
 export default moviesSlice.reducer

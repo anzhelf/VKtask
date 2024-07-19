@@ -1,21 +1,37 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import HeartIconActive from '../../images/heart-active.svg'
 import HeartIcon from '../../images/heart.svg'
 import { ICard } from '../../interfaces/data'
 import styles from './MoviesCard.module.scss'
 
+import { useDispatch, useSelector } from 'react-redux'
+import { incSaveMovies, decSaveMovies } from '../../redux/slices/moviesSlice'
+import type { RootState } from '../../redux/store'
+
 interface IMoviesCardProps {
 	mov: ICard
 }
 
 const MoviesCard: React.FC<IMoviesCardProps> = ({ mov }) => {
-	const [likes, setLikes] = useState<ICard[]>([])
-	const [isLikeActive, setLikeActive] = useState<boolean>(false)
+	const saveMovies = useSelector((state: RootState) => state.movies.saveMovies)
+	const dispatch = useDispatch()
 
-	const handleClick = (): void => {
+	const [isLikeActive, setLikeActive] = useState<boolean>(
+		saveMovies.includes(Number(mov.id)),
+	)
+
+	useEffect(() => {
+		localStorage.setItem('saveMovies', JSON.stringify(saveMovies))
+	}, [saveMovies])
+
+	const handleClick = (id: number): void => {
+		if (isLikeActive) {
+			dispatch(decSaveMovies(id))
+		} else {
+			dispatch(incSaveMovies(id))
+		}
 		setLikeActive(!isLikeActive)
-		setLikes([...likes, mov])
 	}
 
 	return (
@@ -39,7 +55,7 @@ const MoviesCard: React.FC<IMoviesCardProps> = ({ mov }) => {
 						</div>
 						<p className={styles.card__subtitle}>{mov.year}</p>
 						<img
-							onClick={handleClick}
+							onClick={() => handleClick(Number(mov.id))}
 							className={`${styles.card__like} ${
 								isLikeActive && styles.card__like_active
 							}`}
