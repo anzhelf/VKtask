@@ -1,18 +1,14 @@
-import { FC } from 'react'
-import { IResponse } from '../../interfaces/data'
+import { useSelector } from 'react-redux'
+import type { RootState } from '../../redux/store'
 import MoviesCard from '../MoviesCard/MoviesCard'
 import styles from './MoviesCardList.module.scss'
 
-interface MoviesCardListProps {
-	movies: IResponse
-}
-
-const MoviesCardList: FC<MoviesCardListProps> = ({ movies }) => {
+const MoviesCardList = () => {
+	const movies = useSelector((state: RootState) => state.movies.value)
 	return (
 		<main className={styles.main}>
 			<ul className={styles.main__list}>
-				{movies !== null &&
-					movies.docs.map(mov => <MoviesCard key={mov.id} mov={mov} />)}
+				{!!movies && movies.map(mov => <MoviesCard key={mov.id} mov={mov} />)}
 			</ul>
 		</main>
 	)

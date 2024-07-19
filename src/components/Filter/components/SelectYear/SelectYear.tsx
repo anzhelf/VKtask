@@ -9,8 +9,6 @@ import type { RootState } from '../../../../redux/store'
 
 const years = Array.from({ length: 2024 - 1900 + 1 }, (_, i) => 1900 + i)
 
-//&year=2020-2024
-
 const ITEM_HEIGHT = 48
 const ITEM_PADDING_TOP = 8
 const MenuProps = {
@@ -37,7 +35,6 @@ const SelectYear = () => {
 		} else {
 			dispatch(setYearTo(Number(value)))
 		}
-		// setCurrentRating(typeof value === 'string' ? value.split(',') : value)
 	}
 
 	return (

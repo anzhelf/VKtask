@@ -11,8 +11,6 @@ import type { RootState } from '../../../../redux/store'
 
 const ratingArr = [...new Array(10)].map((_, i) => i + 1)
 
-//&rating.kp=7-10
-
 const ITEM_HEIGHT = 48
 const ITEM_PADDING_TOP = 8
 const MenuProps = {
@@ -39,7 +37,6 @@ const SelectRating = () => {
 		} else {
 			dispatch(setRatingTo(Number(value)))
 		}
-		// setCurrentRating(typeof value === 'string' ? value.split(',') : value)
 	}
 
 	return (

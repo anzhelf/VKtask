@@ -96,3 +96,8 @@ export interface IFilterSlice {
 		page: number
 	}
 }
+
+export interface IResponseGenre {
+	name: string
+	slug: string
+}

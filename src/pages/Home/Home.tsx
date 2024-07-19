@@ -1,13 +1,18 @@
 import axios from 'axios'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import Filter from '../../components/Filter/Filter'
 import MoviesCardList from '../../components/MoviesCardList/MoviesCardList'
 import PaginationOutlined from '../../components/PaginationOutlined/PaginationOutlined'
-import { IResponse, IFilterSlice } from '../../interfaces/data'
+import { IFilterSlice, IResponseGenre } from '../../interfaces/data'
 import styles from './Home.module.scss'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { setPage, setPagesQty } from '../../redux/slices/filterSlice'
+import {
+	setPage,
+	setPagesQty,
+	setStackGenre,
+} from '../../redux/slices/filterSlice'
+import { setMovies } from '../../redux/slices/moviesSlice'
 import type { RootState } from '../../redux/store'
 
 const BASE_URL = import.meta.env.VITE_BASE_URL
@@ -39,11 +44,12 @@ const queryParams = ({ year, rating, genres }: IFilterSlice): string => {
 }
 
 const Home = () => {
+	const movies = useSelector((state: RootState) => state.movies.value)
 	const page = useSelector((state: RootState) => state.filter.pages.page)
 	const filter = useSelector((state: RootState) => state.filter)
 	const dispatch = useDispatch()
 
-	const [movies, setMovies] = useState<IResponse | null>(null)
+	console.log(movies)
 
 	useEffect(() => {
 		async function fetchMovies() {
@@ -57,9 +63,7 @@ const Home = () => {
 						},
 					},
 				)
-				console.log('query')
-				localStorage.setItem('moviesList', JSON.stringify(data))
-				setMovies(data)
+				dispatch(setMovies(data.docs))
 				dispatch(setPage(data.page))
 				dispatch(setPagesQty(data.pages))
 			} catch (e) {
@@ -69,10 +73,38 @@ const Home = () => {
 		fetchMovies()
 	}, [filter])
 
+	useEffect(() => {
+		async function fetchGenres() {
+			try {
+				const { data } = await axios.get(
+					`${BASE_URL}/possible-values-by-field?field=genres.name`,
+					{
+						method: 'GET',
+						headers: {
+							'X-API-KEY': `${API_KEY}`,
+						},
+					},
+				)
+				dispatch(setStackGenre(data))
+			} catch (e) {
+				console.log('Произошла ошибка, при получении списка жанров:', e)
+			}
+		}
+
+		const storageStackGenres = localStorage.getItem('genresStack')
+
+		if (storageStackGenres !== null) {
+			const parseGenres: IResponseGenre[] = JSON.parse(storageStackGenres)
+			dispatch(setStackGenre(parseGenres))
+		} else {
+			fetchGenres()
+		}
+	}, [])
+
 	return (
 		<div className={styles.home}>
 			<Filter />
-			{!!movies && <MoviesCardList movies={movies} />}
+			{!!movies && <MoviesCardList />}
 			{filter.pages.pagesQty > 1 && <PaginationOutlined />}
 		</div>
 	)

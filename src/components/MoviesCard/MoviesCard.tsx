@@ -5,11 +5,11 @@ import HeartIcon from '../../images/heart.svg'
 import { ICard } from '../../interfaces/data'
 import styles from './MoviesCard.module.scss'
 
-interface MoviesCardProps {
+interface IMoviesCardProps {
 	mov: ICard
 }
 
-const MoviesCard: React.FC<MoviesCardProps> = ({ mov }) => {
+const MoviesCard: React.FC<IMoviesCardProps> = ({ mov }) => {
 	const [likes, setLikes] = useState<ICard[]>([])
 	const [isLikeActive, setLikeActive] = useState<boolean>(false)
 
@@ -33,7 +33,7 @@ const MoviesCard: React.FC<MoviesCardProps> = ({ mov }) => {
 					</h2>
 					<div className={styles.card__info}>
 						<div className={styles.card__rating}>
-							<p className={styles.card__subtitle}>{mov.rating.imdb}</p>
+							<p className={styles.card__subtitle}>{mov.rating.kp}</p>
 						</div>
 						<p className={styles.card__subtitle}>{mov.year}</p>
 						<img
