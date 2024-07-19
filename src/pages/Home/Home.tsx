@@ -15,9 +15,13 @@ const API_KEY = import.meta.env.VITE_API_KEY
 
 const Home = () => {
 	const page = useSelector((state: RootState) => state.filter.pages.page)
+	const year = useSelector((state: RootState) => state.filter.year)
+	const rating = useSelector((state: RootState) => state.filter.rating)
 	const dispatch = useDispatch()
 
-	console.log('filter:', page)
+	console.log('page:', page)
+	console.log('year:', year)
+	console.log('rating:', rating)
 
 	const [movies, setMovies] = useState<IResponse | null>(null)
 

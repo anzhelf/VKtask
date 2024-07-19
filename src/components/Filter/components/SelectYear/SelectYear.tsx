@@ -2,7 +2,10 @@ import FormControl from '@mui/material/FormControl'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
-import * as React from 'react'
+
+import { useDispatch, useSelector } from 'react-redux'
+import { setYearFrom, setYearTo } from '../../../../redux/slices/filterSlice'
+import type { RootState } from '../../../../redux/store'
 
 const years = Array.from({ length: 2024 - 1900 + 1 }, (_, i) => 1900 + i)
 
@@ -19,26 +22,20 @@ const MenuProps = {
 	},
 }
 
-type TCurrentYear = {
-	from: number
-	to: number
-}
-
 const SelectYear = () => {
-	const [currentYear, setCurrentYear] = React.useState<TCurrentYear>({
-		from: 0,
-		to: 0,
-	})
+	const year = useSelector((state: RootState) => state.filter.year)
+	const dispatch = useDispatch()
 
 	const handleChange = (event: SelectChangeEvent<number>) => {
 		const { value, name } = event.target
 
 		if (name === 'from') {
-			const toValue = Number(value) > currentYear.to ? 0 : currentYear.to
-
-			setCurrentYear({ from: Number(value), to: toValue })
+			if (Number(value) > year.to) {
+				dispatch(setYearTo(0))
+			}
+			dispatch(setYearFrom(Number(value)))
 		} else {
-			setCurrentYear(prev => ({ ...prev, [name]: Number(value) }))
+			dispatch(setYearTo(Number(value)))
 		}
 		// setCurrentRating(typeof value === 'string' ? value.split(',') : value)
 	}
@@ -53,7 +50,7 @@ const SelectYear = () => {
 				<Select
 					name='from'
 					MenuProps={MenuProps}
-					value={currentYear.from === 0 ? '' : currentYear.from}
+					value={year.from === 0 ? '' : year.from}
 					id='grouped-select'
 					label='Grouping'
 					onChange={handleChange}
@@ -73,7 +70,7 @@ const SelectYear = () => {
 				<Select
 					name='to'
 					MenuProps={MenuProps}
-					value={currentYear.to === 0 ? '' : currentYear.to}
+					value={year.to === 0 ? '' : year.to}
 					id='grouped-select'
 					label='Grouping'
 					onChange={handleChange}
@@ -82,7 +79,7 @@ const SelectYear = () => {
 						<em>Не выбирать</em>
 					</MenuItem>
 					{years.map(i => (
-						<MenuItem key={i} value={i} disabled={currentYear.from > i}>
+						<MenuItem key={i} value={i} disabled={year.from > i}>
 							{i}
 						</MenuItem>
 					))}
@@ -91,5 +88,4 @@ const SelectYear = () => {
 		</div>
 	)
 }
-
 export default SelectYear

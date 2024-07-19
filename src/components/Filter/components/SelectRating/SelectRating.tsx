@@ -2,7 +2,12 @@ import FormControl from '@mui/material/FormControl'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
-import * as React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+	setRatingFrom,
+	setRatingTo,
+} from '../../../../redux/slices/filterSlice'
+import type { RootState } from '../../../../redux/store'
 
 const ratingArr = [...new Array(10)].map((_, i) => i + 1)
 
@@ -19,25 +24,20 @@ const MenuProps = {
 	},
 }
 
-type TCurrentRating = {
-	from: number
-	to: number
-}
-
 const SelectRating = () => {
-	const [currentRating, setCurrentRating] = React.useState<TCurrentRating>({
-		from: 0,
-		to: 0,
-	})
+	const rating = useSelector((state: RootState) => state.filter.rating)
+	const dispatch = useDispatch()
 
 	const handleChange = (event: SelectChangeEvent<number>) => {
 		const { value, name } = event.target
 
 		if (name === 'from') {
-			const toValue = Number(value) > currentRating.to ? 0 : currentRating.to
-			setCurrentRating({ from: Number(value), to: toValue })
+			if (Number(value) > rating.to) {
+				dispatch(setRatingTo(0))
+			}
+			dispatch(setRatingFrom(Number(value)))
 		} else {
-			setCurrentRating({ ...currentRating, [name]: Number(value) })
+			dispatch(setRatingTo(Number(value)))
 		}
 		// setCurrentRating(typeof value === 'string' ? value.split(',') : value)
 	}
@@ -52,7 +52,7 @@ const SelectRating = () => {
 				<Select
 					name='from'
 					MenuProps={MenuProps}
-					value={currentRating.from === 0 ? '' : currentRating.from}
+					value={rating.from === 0 ? '' : rating.from}
 					id='grouped-select'
 					label='Grouping'
 					onChange={handleChange}
@@ -72,7 +72,7 @@ const SelectRating = () => {
 				<Select
 					name='to'
 					MenuProps={MenuProps}
-					value={currentRating.to === 0 ? '' : currentRating.to}
+					value={rating.to === 0 ? '' : rating.to}
 					id='grouped-select'
 					label='Grouping'
 					onChange={handleChange}
@@ -81,7 +81,7 @@ const SelectRating = () => {
 						<em>Не выбирать</em>
 					</MenuItem>
 					{ratingArr.map(i => (
-						<MenuItem key={i} value={i} disabled={currentRating.from > i}>
+						<MenuItem key={i} value={i} disabled={rating.from > i}>
 							{i}
 						</MenuItem>
 					))}

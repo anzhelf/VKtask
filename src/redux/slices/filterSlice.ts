@@ -2,9 +2,15 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
 
 export interface filterSlice {
-	year: number
-	rating: number
-	genre: number
+	year: {
+		from: number
+		to: number
+	}
+	rating: {
+		from: number
+		to: number
+	}
+	genre: string[]
 	pages: {
 		pagesQty: number
 		page: number
@@ -12,9 +18,15 @@ export interface filterSlice {
 }
 
 const initialState: filterSlice = {
-	year: 0,
-	rating: 0,
-	genre: 0,
+	year: {
+		from: 0,
+		to: 0,
+	},
+	rating: {
+		from: 0,
+		to: 0,
+	},
+	genre: [],
 	pages: {
 		pagesQty: 0,
 		page: 0,
@@ -26,11 +38,22 @@ export const filterSlice = createSlice({
 	initialState,
 	reducers: {
 		setPage(state, action: PayloadAction<number>) {
-			console.log('action:', action)
 			state.pages.page = action.payload
 		},
 		setPagesQty(state, action: PayloadAction<number>) {
 			state.pages.pagesQty = action.payload
+		},
+		setYearFrom(state, action: PayloadAction<number>) {
+			state.year.from = action.payload
+		},
+		setYearTo(state, action: PayloadAction<number>) {
+			state.year.to = action.payload
+		},
+		setRatingFrom(state, action: PayloadAction<number>) {
+			state.rating.from = action.payload
+		},
+		setRatingTo(state, action: PayloadAction<number>) {
+			state.rating.to = action.payload
 		},
 
 		increment: state => {
@@ -42,7 +65,13 @@ export const filterSlice = createSlice({
 	},
 })
 
-export const { increment, decrement, setPage, setPagesQty } =
-	filterSlice.actions
+export const {
+	setPage,
+	setPagesQty,
+	setYearFrom,
+	setYearTo,
+	setRatingFrom,
+	setRatingTo,
+} = filterSlice.actions
 
 export default filterSlice.reducer
