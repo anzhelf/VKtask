@@ -7,7 +7,7 @@ import CardPage from './pages/CardPage/CardPage'
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage'
 import styles from './App.module.scss'
 import Likes from './pages/Likes/Likes'
-import { IFilterSlice, IResponseGenre } from './interfaces/data'
+import { ICard, IFilterSlice, IResponseGenre } from './interfaces/data'
 import { useDispatch, useSelector } from 'react-redux'
 import { setPage, setPagesQty, setStackGenre } from './redux/slices/filterSlice'
 import { setMovies, setSaveMovies } from './redux/slices/moviesSlice'
@@ -92,7 +92,7 @@ function App() {
 
 		const storageSaveMovies = localStorage.getItem('saveMovies')
 		if (storageSaveMovies !== null) {
-			const parseSaveMovies: number[] = JSON.parse(storageSaveMovies)
+			const parseSaveMovies: ICard[] = JSON.parse(storageSaveMovies)
 			dispatch(setSaveMovies(parseSaveMovies))
 		}
 

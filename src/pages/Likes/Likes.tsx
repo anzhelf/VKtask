@@ -1,6 +1,5 @@
 import MoviesCardList from '../../components/MoviesCardList/MoviesCardList'
 import styles from '../Home/Home.module.scss'
-
 import { useSelector } from 'react-redux'
 import type { RootState } from '../../redux/store'
 

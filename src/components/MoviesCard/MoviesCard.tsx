@@ -18,18 +18,18 @@ const MoviesCard: React.FC<IMoviesCardProps> = ({ mov }) => {
 	const dispatch = useDispatch()
 
 	const [isLikeActive, setLikeActive] = useState<boolean>(
-		saveMovies.includes(Number(mov.id)),
+		saveMovies.some(el => el.id === mov.id),
 	)
 
 	useEffect(() => {
 		localStorage.setItem('saveMovies', JSON.stringify(saveMovies))
 	}, [saveMovies])
 
-	const handleClick = (id: number): void => {
+	const handleClick = (arg: ICard): void => {
 		if (isLikeActive) {
-			dispatch(decSaveMovies(id))
+			dispatch(decSaveMovies(Number(arg.id)))
 		} else {
-			dispatch(incSaveMovies(id))
+			dispatch(incSaveMovies(arg))
 		}
 		setLikeActive(!isLikeActive)
 	}
@@ -55,7 +55,7 @@ const MoviesCard: React.FC<IMoviesCardProps> = ({ mov }) => {
 						</div>
 						<p className={styles.card__subtitle}>{mov.year}</p>
 						<img
-							onClick={() => handleClick(Number(mov.id))}
+							onClick={() => handleClick(mov)}
 							className={`${styles.card__like} ${
 								isLikeActive && styles.card__like_active
 							}`}

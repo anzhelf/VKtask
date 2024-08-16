@@ -18,9 +18,7 @@ const MoviesCardList: FC<IMoviesCardProps> = ({ typePage }) => {
 			<ul className={styles.main__list}>
 				{typePage
 					? !!saveMovies &&
-					  movies
-							.filter(m => saveMovies.includes(Number(m.id)))
-							.map(mov => <MoviesCard key={mov.id} mov={mov} />)
+					  saveMovies.map(mov => <MoviesCard key={mov.id} mov={mov} />)
 					: !!movies &&
 					  movies.map(mov => <MoviesCard key={mov.id} mov={mov} />)}
 			</ul>

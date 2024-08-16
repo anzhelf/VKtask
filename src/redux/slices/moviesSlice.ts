@@ -4,7 +4,7 @@ import { ICard } from '../../interfaces/data'
 
 interface MoviesState {
 	movies: ICard[] | null
-	saveMovies: number[]
+	saveMovies: ICard[] | []
 }
 
 const initialState: MoviesState = {
@@ -19,14 +19,18 @@ export const moviesSlice = createSlice({
 		setMovies: (state, action: PayloadAction<ICard[] | null>) => {
 			state.movies = action.payload
 		},
-		setSaveMovies: (state, action: PayloadAction<number[]>) => {
-			state.saveMovies = action.payload
+		setSaveMovies: (state, action: PayloadAction<ICard[] | []>) => {
+			if (action.payload) {
+				state.saveMovies = action.payload
+			} else {
+				state.saveMovies = []
+			}
 		},
-		incSaveMovies: (state, action: PayloadAction<number>) => {
+		incSaveMovies: (state, action: PayloadAction<ICard>) => {
 			state.saveMovies = [...state.saveMovies, action.payload]
 		},
 		decSaveMovies: (state, action: PayloadAction<number>) => {
-			state.saveMovies = state.saveMovies.filter(el => el !== action.payload)
+			state.saveMovies = state.saveMovies.filter(el => el.id !== action.payload)
 		},
 	},
 })
