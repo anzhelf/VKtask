@@ -1,0 +1,10 @@
+{
+	"movies": "Movies",
+	"savedMovies": "Saved Movies",
+	"select": "Don't selected",
+	"fromYear": "from year",
+	"toYear": "to year",
+	"fromRating": "from rating",
+	"toRating": "to rating",
+	"genre": "by genre"
+}

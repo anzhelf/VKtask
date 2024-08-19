@@ -1,0 +1,18 @@
+.switcher {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 20px 0 0;
+	width: 100%;
+
+	&__button {
+		padding: 8.5px 14px;
+		font-size: 16px;
+		color: #848688;
+		background: none;
+	}
+
+	&__button_active {
+		color: #747bff;
+	}
+}

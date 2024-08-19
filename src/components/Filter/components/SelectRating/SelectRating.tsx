@@ -2,6 +2,7 @@ import FormControl from '@mui/material/FormControl'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
+import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import {
 	setRatingFrom,
@@ -26,6 +27,8 @@ const SelectRating = () => {
 	const rating = useSelector((state: RootState) => state.filter.rating)
 	const dispatch = useDispatch()
 
+	const { t } = useTranslation()
+
 	const handleChange = (event: SelectChangeEvent<number>) => {
 		const { value, name } = event.target
 
@@ -45,7 +48,7 @@ const SelectRating = () => {
 				size='small'
 				sx={{ m: 1, minWidth: 120, margin: 0, marginRight: 1 }}
 			>
-				<InputLabel htmlFor='grouped-select'>с ... рейтинга:</InputLabel>
+				<InputLabel htmlFor='grouped-select'>{t('fromRating')}:</InputLabel>
 				<Select
 					name='from'
 					MenuProps={MenuProps}
@@ -55,7 +58,7 @@ const SelectRating = () => {
 					onChange={handleChange}
 				>
 					<MenuItem value=''>
-						<em>Не выбирать</em>
+						<em>{t('select')}</em>
 					</MenuItem>
 					{ratingArr.map(i => (
 						<MenuItem key={i} value={i}>
@@ -65,7 +68,7 @@ const SelectRating = () => {
 				</Select>
 			</FormControl>
 			<FormControl size='small' sx={{ m: 1, minWidth: 120, margin: 0 }}>
-				<InputLabel htmlFor='grouped-select'>по ... рейтинг:</InputLabel>
+				<InputLabel htmlFor='grouped-select'>{t('toRating')}:</InputLabel>
 				<Select
 					name='to'
 					MenuProps={MenuProps}
@@ -75,7 +78,7 @@ const SelectRating = () => {
 					onChange={handleChange}
 				>
 					<MenuItem value=''>
-						<em>Не выбирать</em>
+						<em>{t('select')}</em>
 					</MenuItem>
 					{ratingArr.map(i => (
 						<MenuItem key={i} value={i} disabled={rating.from > i}>

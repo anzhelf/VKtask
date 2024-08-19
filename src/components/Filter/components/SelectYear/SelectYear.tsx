@@ -6,6 +6,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select'
 import { useDispatch, useSelector } from 'react-redux'
 import { setYearFrom, setYearTo } from '../../../../redux/slices/filterSlice'
 import type { RootState } from '../../../../redux/store'
+import { useTranslation } from 'react-i18next'
 
 const years = Array.from({ length: 2024 - 1900 + 1 }, (_, i) => 1900 + i)
 
@@ -23,6 +24,8 @@ const MenuProps = {
 const SelectYear = () => {
 	const year = useSelector((state: RootState) => state.filter.year)
 	const dispatch = useDispatch()
+
+	const { t } = useTranslation()
 
 	const handleChange = (event: SelectChangeEvent<number>) => {
 		const { value, name } = event.target
@@ -43,7 +46,7 @@ const SelectYear = () => {
 				size='small'
 				sx={{ m: 1, minWidth: 120, margin: 0, marginRight: 1 }}
 			>
-				<InputLabel htmlFor='grouped-select'>с ... года:</InputLabel>
+				<InputLabel htmlFor='grouped-select'>{t('fromYear')}:</InputLabel>
 				<Select
 					name='from'
 					MenuProps={MenuProps}
@@ -53,7 +56,7 @@ const SelectYear = () => {
 					onChange={handleChange}
 				>
 					<MenuItem value=''>
-						<em>Не выбирать</em>
+						<em>{t('select')}</em>
 					</MenuItem>
 					{years.map(i => (
 						<MenuItem key={i} value={i}>
@@ -63,7 +66,7 @@ const SelectYear = () => {
 				</Select>
 			</FormControl>
 			<FormControl size='small' sx={{ m: 1, minWidth: 120, margin: 0 }}>
-				<InputLabel htmlFor='grouped-select'>по ... год:</InputLabel>
+				<InputLabel htmlFor='grouped-select'>{t('toYear')}:</InputLabel>
 				<Select
 					name='to'
 					MenuProps={MenuProps}
@@ -73,7 +76,7 @@ const SelectYear = () => {
 					onChange={handleChange}
 				>
 					<MenuItem value=''>
-						<em>Не выбирать</em>
+						<em>{t('select')}</em>
 					</MenuItem>
 					{years.map(i => (
 						<MenuItem key={i} value={i} disabled={year.from > i}>

@@ -1,17 +1,18 @@
-import { Route, Routes } from 'react-router-dom'
-import { useEffect } from 'react'
 import axios from 'axios'
-import Home from './pages/Home/Home'
-import Navigation from './components/Navigation/Navigation'
-import CardPage from './pages/CardPage/CardPage'
-import NotFoundPage from './pages/NotFoundPage/NotFoundPage'
-import styles from './App.module.scss'
-import Likes from './pages/Likes/Likes'
-import { ICard, IFilterSlice, IResponseGenre } from './interfaces/data'
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Route, Routes } from 'react-router-dom'
+import styles from './App.module.scss'
+import Navigation from './components/Navigation/Navigation'
+import { ICard, IFilterSlice, IResponseGenre } from './interfaces/data'
+import CardPage from './pages/CardPage/CardPage'
+import Home from './pages/Home/Home'
+import Likes from './pages/Likes/Likes'
+import NotFoundPage from './pages/NotFoundPage/NotFoundPage'
 import { setPage, setPagesQty, setStackGenre } from './redux/slices/filterSlice'
 import { setMovies, setSaveMovies } from './redux/slices/moviesSlice'
 import type { RootState } from './redux/store'
+import LanguageSwitcher from './components/LanguageSwitcher/LanguageSwitcher'
 
 const BASE_URL = import.meta.env.VITE_BASE_URL
 const API_KEY = import.meta.env.VITE_API_KEY
@@ -107,6 +108,7 @@ function App() {
 
 	return (
 		<div className={styles.content}>
+			<LanguageSwitcher />
 			<Navigation />
 			<Routes>
 				<Route path='/' element={<Home />} />

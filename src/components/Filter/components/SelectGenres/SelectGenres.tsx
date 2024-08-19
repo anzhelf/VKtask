@@ -8,6 +8,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select'
 import { useDispatch, useSelector } from 'react-redux'
 import { setSelectedGenres } from '../../../../redux/slices/filterSlice'
 import type { RootState } from '../../../../redux/store'
+import { useTranslation } from 'react-i18next'
 
 const ITEM_HEIGHT = 48
 const ITEM_PADDING_TOP = 8
@@ -29,6 +30,8 @@ const SelectGenres = () => {
 	)
 	const dispatch = useDispatch()
 
+	const { t } = useTranslation()
+
 	const handleChange = (event: SelectChangeEvent<typeof selectedGenres>) => {
 		const { value } = event.target
 		dispatch(
@@ -39,7 +42,7 @@ const SelectGenres = () => {
 	return (
 		<div>
 			<FormControl size='small' sx={{ m: 1, width: 250, margin: 0 }}>
-				<InputLabel id='demo-multiple-checkbox-label'>По жанру:</InputLabel>
+				<InputLabel id='demo-multiple-checkbox-label'>{t('genre')}:</InputLabel>
 				<Select
 					labelId='demo-multiple-checkbox-label'
 					id='demo-multiple-checkbox'

@@ -1,7 +1,9 @@
 import styles from './Navigation.module.scss'
 import { NavLink } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 const Navigation = () => {
+	const { t } = useTranslation()
 	return (
 		<nav className={styles.menu}>
 			<NavLink
@@ -9,14 +11,14 @@ const Navigation = () => {
 				className={styles.menu__link}
 				to='/'
 			>
-				Фильмы
+				{t('movies')}
 			</NavLink>
 			<NavLink
 				style={({ isActive }) => ({ color: isActive && '#646cff' })}
 				className={styles.menu__link}
 				to='/likes'
 			>
-				Избранное
+				{t('savedMovies')}
 			</NavLink>
 		</nav>
 	)
