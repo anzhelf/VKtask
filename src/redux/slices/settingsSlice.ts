@@ -1,11 +1,6 @@
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
-// import { IFilterSlice, IResponseGenre } from '../../interfaces/data'
-
-interface ISettingsSlice {
-	theme: string
-	langage: string
-}
+import { ISettingsSlice } from '../../interfaces/data'
 
 const initialState: ISettingsSlice = {
 	theme: 'light',

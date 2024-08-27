@@ -70,18 +70,12 @@
 	}
 
 	&__like {
-		width: 24px;
-		height: 24px;
 		margin-left: auto;
-		opacity: 0.2;
-	}
-
-	&__like_active {
-		opacity: 1;
+		transition: transform 0.3s ease;
 	}
 
 	&__like:hover {
 		cursor: pointer;
-		opacity: 1;
+		transform: scale(1.2);
 	}
 }

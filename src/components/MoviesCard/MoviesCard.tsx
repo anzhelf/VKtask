@@ -8,6 +8,8 @@ import styles from './MoviesCard.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
 import { incSaveMovies, decSaveMovies } from '../../redux/slices/moviesSlice'
 import type { RootState } from '../../redux/store'
+import { Heart } from 'lucide-react'
+import { grey } from '@mui/material/colors'
 
 interface IMoviesCardProps {
 	mov: ICard
@@ -54,12 +56,12 @@ const MoviesCard: React.FC<IMoviesCardProps> = ({ mov }) => {
 							</p>
 						</div>
 						<p className={styles.card__subtitle}>{mov.year}</p>
-						<img
+
+						<Heart
+							className={styles.card__like}
 							onClick={() => handleClick(mov)}
-							className={`${styles.card__like} ${
-								isLikeActive && styles.card__like_active
-							}`}
-							src={isLikeActive ? HeartIconActive : HeartIcon}
+							fill={isLikeActive ? '#646cff' : 'silver'}
+							color={isLikeActive ? '#646cff' : 'silver'}
 						/>
 					</div>
 				</div>
