@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Route, Routes } from 'react-router-dom'
 import styles from './App.module.scss'
 import Navigation from './components/Navigation/Navigation'
+import Settings from './components/Settings/Settings'
 import { ICard, IFilterSlice, IResponseGenre } from './interfaces/data'
 import CardPage from './pages/CardPage/CardPage'
 import Home from './pages/Home/Home'
@@ -14,7 +15,6 @@ import { setPage, setPagesQty, setStackGenre } from './redux/slices/filterSlice'
 import { setMovies, setSaveMovies } from './redux/slices/moviesSlice'
 import type { RootState } from './redux/store'
 import { darkTheme, lightTheme } from './theme'
-import Settings from './components/Settings/Settings'
 
 const BASE_URL = import.meta.env.VITE_BASE_URL
 const API_KEY = import.meta.env.VITE_API_KEY
@@ -73,7 +73,7 @@ function App() {
 			}
 		}
 		fetchMovies()
-	}, [filter])
+	}, [filter, dispatch, page])
 
 	useEffect(() => {
 		async function fetchGenres() {
@@ -107,7 +107,7 @@ function App() {
 		} else {
 			fetchGenres()
 		}
-	}, [])
+	}, [dispatch])
 
 	return (
 		<ThemeProvider theme={theme === 'dark' ? darkTheme : lightTheme}>

@@ -1,15 +1,11 @@
-import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import HeartIconActive from '../../images/heart-active.svg'
-import HeartIcon from '../../images/heart.svg'
-import { ICard } from '../../interfaces/data'
-import styles from './MoviesCard.module.scss'
-
-import { useDispatch, useSelector } from 'react-redux'
-import { incSaveMovies, decSaveMovies } from '../../redux/slices/moviesSlice'
-import type { RootState } from '../../redux/store'
 import { Heart } from 'lucide-react'
-import { grey } from '@mui/material/colors'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { ICard } from '../../interfaces/data'
+import { decSaveMovies, incSaveMovies } from '../../redux/slices/moviesSlice'
+import type { RootState } from '../../redux/store'
+import styles from './MoviesCard.module.scss'
 
 interface IMoviesCardProps {
 	mov: ICard
