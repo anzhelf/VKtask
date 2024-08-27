@@ -1,3 +1,4 @@
+import { ThemeProvider } from '@mui/material/styles'
 import axios from 'axios'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -12,10 +13,8 @@ import NotFoundPage from './pages/NotFoundPage/NotFoundPage'
 import { setPage, setPagesQty, setStackGenre } from './redux/slices/filterSlice'
 import { setMovies, setSaveMovies } from './redux/slices/moviesSlice'
 import type { RootState } from './redux/store'
-import LanguageSwitcher from './components/LanguageSwitcher/LanguageSwitcher'
-import ThemeToggle from './components/ThemeToggle/ThemeToggle'
-import { ThemeProvider } from '@mui/material/styles'
-import { lightTheme, darkTheme } from './theme'
+import { darkTheme, lightTheme } from './theme'
+import Settings from './components/Settings/Settings'
 
 const BASE_URL = import.meta.env.VITE_BASE_URL
 const API_KEY = import.meta.env.VITE_API_KEY
@@ -113,8 +112,7 @@ function App() {
 	return (
 		<ThemeProvider theme={theme === 'dark' ? darkTheme : lightTheme}>
 			<div className={styles.content}>
-				<ThemeToggle />
-				<LanguageSwitcher />
+				<Settings />
 				<Navigation />
 				<Routes>
 					<Route path='/' element={<Home />} />
