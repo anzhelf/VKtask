@@ -50,7 +50,9 @@ const CardPage = () => {
 						</div>
 						<p className={styles.card__subtitle}>{movie.year}</p>
 					</div>
-					<p>{movie.description ? movie.description : 'Фильм без описания.'}</p>
+					<p className={styles.card__description}>
+						{movie.description ? movie.description : 'Фильм без описания.'}
+					</p>
 
 					<ul>
 						{movie.genres.map(el => (

@@ -11,14 +11,14 @@
 		font-size: clamp(1.25rem, 0.938rem + 1.563vw, 2.188rem);
 		line-height: 120%;
 		letter-spacing: -0.02em;
-		color: #1f1e1c;
+		color: var(--title-color);
 		margin: 0;
 		padding: 0;
 	}
 
 	&__link:hover {
 		cursor: pointer;
-		color: #535bf2;
+		color: #646cff;
 	}
 }
 active {

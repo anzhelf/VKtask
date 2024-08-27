@@ -13,6 +13,9 @@ import { setPage, setPagesQty, setStackGenre } from './redux/slices/filterSlice'
 import { setMovies, setSaveMovies } from './redux/slices/moviesSlice'
 import type { RootState } from './redux/store'
 import LanguageSwitcher from './components/LanguageSwitcher/LanguageSwitcher'
+import ThemeToggle from './components/ThemeToggle/ThemeToggle'
+import { ThemeProvider } from '@mui/material/styles'
+import { lightTheme, darkTheme } from './theme'
 
 const BASE_URL = import.meta.env.VITE_BASE_URL
 const API_KEY = import.meta.env.VITE_API_KEY
@@ -48,6 +51,7 @@ const queryParams = ({ year, rating, genres }: IFilterSlice): string => {
 function App() {
 	const page = useSelector((state: RootState) => state.filter.pages.page)
 	const filter = useSelector((state: RootState) => state.filter)
+	const theme = useSelector((state: RootState) => state.settings.theme)
 	const dispatch = useDispatch()
 
 	useEffect(() => {
@@ -107,16 +111,19 @@ function App() {
 	}, [])
 
 	return (
-		<div className={styles.content}>
-			<LanguageSwitcher />
-			<Navigation />
-			<Routes>
-				<Route path='/' element={<Home />} />
-				<Route path='/likes' element={<Likes />} />
-				<Route path='/movie/:id' element={<CardPage />} />
-				<Route path='*' element={<NotFoundPage />} />
-			</Routes>
-		</div>
+		<ThemeProvider theme={theme === 'dark' ? darkTheme : lightTheme}>
+			<div className={styles.content}>
+				<ThemeToggle />
+				<LanguageSwitcher />
+				<Navigation />
+				<Routes>
+					<Route path='/' element={<Home />} />
+					<Route path='/likes' element={<Likes />} />
+					<Route path='/movie/:id' element={<CardPage />} />
+					<Route path='*' element={<NotFoundPage />} />
+				</Routes>
+			</div>
+		</ThemeProvider>
 	)
 }
 
