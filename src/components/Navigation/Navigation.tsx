@@ -7,14 +7,16 @@ const Navigation = () => {
 	return (
 		<nav className={styles.menu}>
 			<NavLink
-				style={({ isActive }) => ({ color: isActive && '#646cff' })}
+				style={({ isActive }) => ({ color: isActive ? '#646cff' : '' })}
 				className={styles.menu__link}
 				to='/'
 			>
 				{t('movies')}
 			</NavLink>
 			<NavLink
-				style={({ isActive }) => ({ color: isActive && '#646cff' })}
+				style={({ isActive }) => ({
+					color: isActive ? '#646cff' : '',
+				})}
 				className={styles.menu__link}
 				to='/likes'
 			>

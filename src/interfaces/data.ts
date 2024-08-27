@@ -17,6 +17,11 @@ export interface ICard {
 	shortDescription: string | null
 	rating: IRating
 	poster?: IPoster
+	genres: IGenres[]
+}
+
+interface IGenres {
+	name: string
 }
 
 interface IRating {

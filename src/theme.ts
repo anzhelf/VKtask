@@ -1,6 +1,6 @@
-import { createTheme } from '@mui/material/styles'
+import { createTheme, Theme } from '@mui/material/styles'
 
-const lightTheme = createTheme({
+const lightTheme: Theme = createTheme({
 	palette: {
 		mode: 'light',
 		primary: {
@@ -46,7 +46,7 @@ const lightTheme = createTheme({
 	},
 })
 
-const darkTheme = createTheme({
+const darkTheme: Theme = createTheme({
 	palette: {
 		mode: 'dark',
 		primary: {

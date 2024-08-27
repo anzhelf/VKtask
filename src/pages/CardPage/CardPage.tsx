@@ -1,8 +1,8 @@
+import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { ICard } from '../../interfaces/data'
 import styles from './CardPage.module.scss'
-import axios from 'axios'
 
 const BASE_URL = import.meta.env.VITE_BASE_URL
 const API_KEY = import.meta.env.VITE_API_KEY
@@ -35,7 +35,10 @@ const CardPage = () => {
 			<article className={styles.card}>
 				<div className={styles.card__poster}>
 					{movie.poster !== undefined && (
-						<img className={styles.card__image} src={movie.poster.url} />
+						<img
+							className={styles.card__image}
+							src={movie.poster.url ? movie.poster.url : ''}
+						/>
 					)}
 				</div>
 				<div className={styles.card__box}>
