@@ -9,7 +9,7 @@ import { store } from './redux/store.ts';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   // <React.StrictMode>
-  <Suspense fallback={<div>'loading...'</div>}>
+  <Suspense fallback={<div>{'loading...'}</div>}>
     <Provider store={store}>
       <BrowserRouter>
         <App />
